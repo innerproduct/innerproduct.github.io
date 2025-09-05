@@ -96,4 +96,331 @@
     <script>
         // Data from N3_vocab.md
         const initialVocabularyData = [
-            { kanji: '愛情', kana: 'あいじょう', arti: 'Kasih sayang(rasa)' }, { kanji: '握手', kana: 'あくしゅ', arti: 'bersalaman' }, { kanji: 'アクセス', kana: '', arti: 'akses' }, { kanji: '集まり', kana: 'あつまり', arti: 'perkumpulan' }, { kanji: '宛名', kana: 'あてな', arti: 'alamat(tujuan)' }, { kanji: '後片付け', kana: 'あとかたづけ', arti: 'beres2(setelah)' }, { kanji: 'アドバイス', kana: '', arti: 'saran' }, { kanji: '穴', kana: 'あな', arti: 'lubang' }, { kanji: '余り', kana: 'あまり', arti: 'sisa,berlebih' }, { kanji: 'アンケート', kana: '', arti: 'angket,survei' }, { kanji: 'いたずら', kana: '', arti: 'nakal' }, { kanji: '一部', kana: 'いちぶ', arti: 'sebagian' }, { kanji: '一瞬', kana: 'いっしゅん', arti: 'sejenak,sekilas' }, { kanji: '違反', kana: 'いはん', arti: 'pelanggaran' }, { kanji: 'イベント', kana: '', arti: 'acara,kegiatan' }, { kanji: 'イメージ', kana: '', arti: 'image,gambaran' }, { kanji: '印刷', kana: 'いんさつ', arti: 'print' }, { kanji: '印象', kana: 'いんしょう', arti: 'kesan,berkesan' }, { kanji: 'インタビュー', kana: '', arti: 'wawancara' }, { kanji: '影響', kana: 'えいきょう', arti: 'efek/pengaruh/dampak' }, { kanji: '内側', kana: 'うちがわ', arti: 'Bagian dalam' }, { kanji: 'エコ', kana: '', arti: 'Ramah lingkungan' }, { kanji: '営業', kana: 'えいぎょう', arti: 'broperasi' }, { kanji: 'エネルギー', kana: '', arti: 'energi' }, { kanji: 'オイル', kana: '', arti: 'oil,minyak' }, { kanji: 'お祝い', kana: 'おいわい', arti: 'perayaan' }, { kanji: '応援', kana: 'おうえん', arti: 'mendukung' }, { kanji: '大型', kana: 'おおがた', arti: 'besar' }, { kanji: 'おしゃべり', kana: '', arti: 'obrolan' }, { kanji: '落とし物', kana: 'おとしもの', arti: 'Brg hilang/jatuh' }, { kanji: '思い出', kana: 'おもいで', arti: 'kenangan' }, { kanji: '開会', kana: 'かいかい', arti: 'Pmbukaan prtemuan' }, { kanji: '解決', kana: 'かいけつ', arti: 'solusi/menyelesaikn' }, { kanji: '外出', kana: 'がいしゅつ', arti: 'Pergi keluar' }, { kanji: '改正', kana: 'かいせい', arti: 'revisi/amandemen' }, { kanji: '解説', kana: 'かいせつ', arti: 'penjelasan' }, { kanji: '回転', kana: 'かいてん', arti: 'berputar,memutar/rotasi' }, { kanji: '書留', kana: 'かきとめ', arti: 'surat trcatat' }, { kanji: '拡大', kana: 'かくだい', arti: 'membesarkan(dizoom)' }, { kanji: '家事', kana: 'かじ', arti: 'Pekerjaan rumah' }, { kanji: '貸し出し', kana: 'かしだし', arti: 'peminjaman' }, { kanji: '数', kana: 'かず', arti: 'jumlah' }, { kanji: '型', kana: 'かた', arti: 'model,tipe' }, { kanji: '片方', kana: 'かたほう', arti: 'Salah satu,satu sisi' }, { kanji: 'カタログ', kana: '', arti: 'katalog' }, { kanji: '価値', kana: 'かち', arti: 'nilai' }, { kanji: 'カット', kana: '', arti: 'cut,potong' }, { kanji: '活動', kana: 'かつどう', arti: 'aktifitas,aksi' }, { kanji: '我慢', kana: 'がまん', arti: 'sabar,menahan' }, { kanji: '空', kana: 'から', arti: 'kosong' }, { kanji: '革', kana: 'かわ', arti: 'kulit' }, { kanji: '歓迎', kana: 'かんげい', arti: 'menyambut' }, { kanji: '観光', kana: 'かんこう', arti: 'berwisata' }, { kanji: '観察', kana: 'かんさつ', arti: 'pengamatan' }, { kanji: '感じ', kana: 'かんじ', arti: 'perasaan,kesan' }, { kanji: '感謝', kana: 'かんしゃ', arti: 'Berterima kasih' }, { kanji: '感情', kana: 'かんじょう', arti: 'perasaan,emosi' }, { kanji: '関心', kana: 'かんしん', arti: 'minat' }, { kanji: '感心', kana: 'かんしん', arti: 'berkesan' }, { kanji: '完成', kana: 'かんせい', arti: 'selesai,lengkap' }, { kanji: '感想', kana: 'かんそう', arti: 'kesan,berkesan' }, { kanji: '感動', kana: 'かんどう', arti: 'terharu' }, { kanji: '乾杯', kana: 'かんぱい', arti: 'bersulang' }, { kanji: '管理
+            { kanji: '愛情', kana: 'あいじょう', arti: 'Kasih sayang(rasa)' }, { kanji: '握手', kana: 'あくしゅ', arti: 'bersalaman' }, { kanji: 'アクセス', kana: '', arti: 'akses' }, { kanji: '集まり', kana: 'あつまり', arti: 'perkumpulan' }, { kanji: '宛名', kana: 'あてな', arti: 'alamat(tujuan)' }, { kanji: '後片付け', kana: 'あとかたづけ', arti: 'beres2(setelah)' }, { kanji: 'アドバイス', kana: '', arti: 'saran' }, { kanji: '穴', kana: 'あな', arti: 'lubang' }, { kanji: '余り', kana: 'あまり', arti: 'sisa,berlebih' }, { kanji: 'アンケート', kana: '', arti: 'angket,survei' }, { kanji: 'いたずら', kana: '', arti: 'nakal' }, { kanji: '一部', kana: 'いちぶ', arti: 'sebagian' }, { kanji: '一瞬', kana: 'いっしゅん', arti: 'sejenak,sekilas' }, { kanji: '違反', kana: 'いはん', arti: 'pelanggaran' }, { kanji: 'イベント', kana: '', arti: 'acara,kegiatan' }, { kanji: 'イメージ', kana: '', arti: 'image,gambaran' }, { kanji: '印刷', kana: 'いんさつ', arti: 'print' }, { kanji: '印象', kana: 'いんしょう', arti: 'kesan,berkesan' }, { kanji: 'インタビュー', kana: '', arti: 'wawancara' }, { kanji: '影響', kana: 'えいきょう', arti: 'efek/pengaruh/dampak' }, { kanji: '内側', kana: 'うちがわ', arti: 'Bagian dalam' }, { kanji: 'エコ', kana: '', arti: 'Ramah lingkungan' }, { kanji: '営業', kana: 'えいぎょう', arti: 'broperasi' }, { kanji: 'エネルギー', kana: '', arti: 'energi' }, { kanji: 'オイル', kana: '', arti: 'oil,minyak' }, { kanji: 'お祝い', kana: 'おいわい', arti: 'perayaan' }, { kanji: '応援', kana: 'おうえん', arti: 'mendukung' }, { kanji: '大型', kana: 'おおがた', arti: 'besar' }, { kanji: 'おしゃべり', kana: '', arti: 'obrolan' }, { kanji: '落とし物', kana: 'おとしもの', arti: 'Brg hilang/jatuh' }, { kanji: '思い出', kana: 'おもいで', arti: 'kenangan' }, { kanji: '開会', kana: 'かいかい', arti: 'Pmbukaan prtemuan' }, { kanji: '解決', kana: 'かいけつ', arti: 'solusi/menyelesaikn' }, { kanji: '外出', kana: 'がいしゅつ', arti: 'Pergi keluar' }, { kanji: '改正', kana: 'かいせい', arti: 'revisi/amandemen' }, { kanji: '解説', kana: 'かいせつ', arti: 'penjelasan' }, { kanji: '回転', kana: 'かいてん', arti: 'berputar,memutar/rotasi' }, { kanji: '書留', kana: 'かきとめ', arti: 'surat trcatat' }, { kanji: '拡大', kana: 'かくだい', arti: 'membesarkan(dizoom)' }, { kanji: '家事', kana: 'かじ', arti: 'Pekerjaan rumah' }, { kanji: '貸し出し', kana: 'かしだし', arti: 'peminjaman' }, { kanji: '数', kana: 'かず', arti: 'jumlah' }, { kanji: '型', kana: 'かた', arti: 'model,tipe' }, { kanji: '片方', kana: 'かたほう', arti: 'Salah satu,satu sisi' }, { kanji: 'カタログ', kana: '', arti: 'katalog' }, { kanji: '価値', kana: 'かち', arti: 'nilai' }, { kanji: 'カット', kana: '', arti: 'cut,potong' }, { kanji: '活動', kana: 'かつどう', arti: 'aktifitas,aksi' }, { kanji: '我慢', kana: 'がまん', arti: 'sabar,menahan' }, { kanji: '空', kana: 'から', arti: 'kosong' }, { kanji: '革', kana: 'かわ', arti: 'kulit' }, { kanji: '歓迎', kana: 'かんげい', arti: 'menyambut' }, { kanji: '観光', kana: 'かんこう', arti: 'berwisata' }, { kanji: '観察', kana: 'かんさつ', arti: 'pengamatan' }, { kanji: '感じ', kana: 'かんじ', arti: 'perasaan,kesan' }, { kanji: '感謝', kana: 'かんしゃ', arti: 'Berterima kasih' }, { kanji: '感情', kana: 'かんじょう', arti: 'perasaan,emosi' }, { kanji: '関心', kana: 'かんしん', arti: 'minat' }, { kanji: '感心', kana: 'かんしん', arti: 'berkesan' }, { kanji: '完成', kana: 'かんせい', arti: 'selesai,lengkap' }, { kanji: '感想', kana: 'かんそう', arti: 'kesan,berkesan' }, { kanji: '感動', kana: 'かんどう', arti: 'terharu' }, { kanji: '乾杯', kana: 'かんぱい', arti: 'bersulang' }, { kanji: '管理', kana: 'かんり', arti: 'manajemen' }, { kanji: '関連', kana: 'かんれん', arti: 'hubungan/relasi' }, { kanji: '機会', kana: 'きかい', arti: 'kesempatan' }, { kanji: '効きめ', kana: 'ききめ', arti: 'keefektifan' }, { kanji: '帰国', kana: 'きこく', arti: 'Pulang ke negara' }, { kanji: '記事', kana: 'きじ', arti: 'artikel' }, { kanji: '技術', kana: 'ぎじゅつ', arti: 'teknologi' }, { kanji: '期待', kana: 'きたい', arti: 'harapan' }, { kanji: '帰宅', kana: 'きたく', arti: 'Pulang ke rumah' }, { kanji: '貴重品', kana: 'きちょうひん', arti: 'Barang berharga' }, { kanji: '記入', kana: 'きにゅう', arti: 'mengisi' }, { kanji: '記念', kana: 'きねん', arti: 'mengenang' }, { kanji: '希望', kana: 'きぼう', arti: 'berharap/harapan' }, { kanji: '基本', kana: 'きほん', arti: 'dasar' }, { kanji: '義務', kana: 'ぎむ', arti: 'kewajiban' }, { kanji: '疑問', kana: 'ぎもん', arti: 'pertanyaan/ragu(dlm pikiran)' }, { kanji: '休憩', kana: 'きゅうけい', arti: 'istirahat' }, { kanji: '急用', kana: 'きゅうよう', arti: 'Keperluan bisnis/mendesak' }, { kanji: '行事', kana: 'ぎょうじ', arti: 'acara/even' }, { kanji: '競争', kana: 'きょうそう', arti: 'kompetisi' }, { kanji: '共通', kana: 'きょうつう', arti: 'sama/memiliki kesamaan' }, { kanji: '協力', kana: 'きょうりょく', arti: 'Kerjasama' }, { kanji: '行列', kana: 'ぎょうれつ', arti: 'antrian' }, { kanji: '許可', kana: 'きょか', arti: 'izin' }, { kanji: '漁業', kana: 'ぎょぎょう', arti: 'Industri prikanan' }, { kanji: '距離', kana: 'きょり', arti: 'jarak' }, { kanji: '記録', kana: 'きろく', arti: 'merekam(di data)' }, { kanji: '金庫', kana: 'きんこ', arti: 'brangkas' }, { kanji: '近視', kana: 'きんし', arti: 'Rabun jauh' }, { kanji: '緊張', kana: 'きんちょう', arti: 'gerogi' }, { kanji: '具合', kana: 'ぐあい', arti: 'kondisi' }, { kanji: '工夫', kana: 'くふう', arti: 'Mencari cara' }, { kanji: '区別', kana: 'くべつ', arti: 'membedakan' }, { kanji: 'クリーニング', kana: '', arti: 'laundry' }, { kanji: '苦労', kana: 'くろう', arti: 'kesulitan' }, { kanji: '経営', kana: 'けいえい', arti: 'mengelola' }, { kanji: '掲示', kana: 'けいじ', arti: 'trpajang/memajang' }, { kanji: '景色', kana: 'けしき', arti: 'pemandangan' }, { kanji: '結果', kana: 'けっか', arti: 'hasil' }, { kanji: '決心', kana: 'けっしん', arti: 'Keputusan bulat' }, { kanji: '欠席', kana: 'けっせき', arti: 'Tdk hadir' }, { kanji: '決定', kana: 'けってい', arti: 'keputusan' }, { kanji: '欠点', kana: 'けってん', arti: 'kekurangan' }, { kanji: '結論', kana: 'けつろん', arti: 'kesimpulan' }, { kanji: '券', kana: 'けん', arti: 'tiket' }, { kanji: '研修', kana: 'けんしゅう', arti: 'pelatihan' }, { kanji: '建設', kana: 'けんせつ', arti: 'konstruksi' }, { kanji: '建築', kana: 'けんちく', arti: 'arsitek' }, { kanji: '権利', kana: 'けんり', arti: 'hak' }, { kanji: '原料', kana: 'げんりょう', arti: 'Bahan dasar' }, { kanji: '講演', kana: 'こうえん', arti: 'perkuliahan' }, { kanji: '効果', kana: 'こうか', arti: 'efek(baik)' }, { kanji: '交換', kana: 'こうかん', arti: 'bertukar' }, { kanji: '工業', kana: 'こうぎょう', arti: 'industri' }, { kanji: '航空便', kana: 'こうくうびん', arti: 'Pos udara' }, { kanji: '合計', kana: 'ごうけい', arti: 'total' }, { kanji: '広告', kana: 'こうこく', arti: 'iklan' }, { kanji: '交際', kana: 'こうさい', arti: 'hubungan' }, { kanji: '工事', kana: 'こうじ', arti: 'Pngerjaan konstruksi' }, { kanji: '行動', kana: 'こうどう', arti: 'brbuat/bertindak' }, { kanji: '公立', kana: 'こうりつ', arti: 'umum' }, { kanji: '交流', kana: 'こうりゅう', arti: 'brinteraksi' }, { kanji: 'コース', kana: '', arti: 'lintasan,jalur' }, { kanji: 'コーナー', kana: '', arti: 'korner,area' }, { kanji: 'ゴール', kana: '', arti: 'tujuan,target' }, { kanji: '誤解', kana: 'ごかい', arti: 'Salah paham' }, { kanji: '小型', kana: 'こがた', arti: 'Ukuran kecil' }, { kanji: '国産', kana: 'こくさん', arti: 'Produksi dlm negri' }, { kanji: '国立', kana: 'こくりつ', arti: 'negeri' }, { kanji: '故障', kana: 'こしょう', arti: 'rusak' }, { kanji: '国会', kana: 'こっかい', arti: 'parlemen' }, { kanji: '小包', kana: 'こづつみ', arti: 'paket' }, { kanji: '粉', kana: 'こな', arti: 'tepung' }, { kanji: 'コンクール', kana: '', arti: 'kontes' }, { kanji: '最高', kana: 'さいこう', arti: 'Paling tinggi' }, { kanji: '最大', kana: 'さいだい', arti: 'Paling besar' }, { kanji: '最低', kana: 'さいてい', arti: 'Paling rendah' }, { kanji: '裁判', kana: 'さいばん', arti: 'pengadilan' }, { kanji: '材料', kana: 'ざいりょう', arti: 'bahan,material' }, { kanji: 'サイレン', kana: '', arti: 'Bunyi sirene' }, { kanji: '作業', kana: 'さぎょう', arti: 'pengerjaan' }, { kanji: '作品', kana: 'さくひん', arti: 'Hasil karya' }, { kanji: '撮影', kana: 'さつえい', arti: 'Pengambilan foto/video' }, { kanji: '騒ぎ', kana: 'さわぎ', arti: 'keributan' }, { kanji: '参加', kana: 'さんか', arti: 'ikut,brpartipasi' }, { kanji: '産業', kana: 'さんぎょう', arti: 'industri' }, { kanji: '参考', kana: 'さんこう', arti: 'referensi' }, { kanji: '賛成', kana: 'さんせい', arti: 'setuju,sepaket' }, { kanji: '産地', kana: 'さんち', arti: 'Lokasi produksi' }, { kanji: '残業', kana: 'ざんぎょう', arti: 'lembur' }, { kanji: '資源', kana: 'しげん', arti: 'Sumber alam' }, { kanji: '事件', kana: 'じけん', arti: 'insiden' }, { kanji: '諦める', kana: 'あきらめる', arti: 'menyerah/putus asa' }, { kanji: '飽きる', kana: 'あきる', arti: 'jenuh/bosan/tdk trtarik lagi' }, { kanji: '預かる', kana: 'あずかる', arti: 'dititipkan' }, { kanji: '預ける', kana: 'あずける', arti: 'menitipkan' }, { kanji: '暖める', kana: 'あたためる', arti: 'menghangatkan' }, { kanji: '温める', kana: 'あたためる', arti: 'mnghangatkan' }, { kanji: '当たる', kana: 'あたる', arti: 'terkena' }, { kanji: '余る', kana: 'あまる', arti: 'berlebih' }, { kanji: '編む', kana: 'あむ', arti: 'merajut' }, { kanji: '現れる', kana: 'あらわれる', arti: 'muncul' }, { kanji: '合わせる', kana: 'あわせる', arti: 'mencocokkan' }, { kanji: '慌てる', kana: 'あわてる', arti: 'tergesa2' }, { kanji: '生かす', kana: 'いかす', arti: 'menerapkan' }, { kanji: 'いじめる', kana: '', arti: 'membuli' }, { kanji: 'いためる', kana: '', arti: 'menumis' }, { kanji: '嫌がる', kana: 'いやがる', arti: 'membenci' }, { kanji: 'いらいらする', kana: '', arti: 'meradang,marah' }, { kanji: '祝う', kana: 'いわう', arti: 'merayakan' }, { kanji: '浅い', kana: 'あさい', arti: 'dangkal' }, { kanji: '恐ろしい', kana: 'おそろしい', arti: 'menakutkan' }, { kanji: 'おとなしい', kana: '', arti: 'manut,pendiam' }, { kanji: 'かゆい', kana: '', arti: 'gatal' }, { kanji: 'きつい', kana: '', arti: 'sempit' }, { kanji: '悔しい', kana: 'くやしい', arti: 'kecewa' }, { kanji: '指示', kana: 'しじ', arti: 'instruksi,arahan' }, { kanji: '事実', kana: 'じじつ', arti: 'kenyataan,fakta' }, { kanji: '事情', kana: 'じじょう', arti: 'situasi,kondisi' }, { kanji: '自信', kana: 'じしん', arti: 'Percaya diri' }, { kanji: '時速', kana: 'じそく', arti: 'Kecepatan perjam' }, { kanji: '支度', kana: 'したく', arti: 'persiapan' }, { kanji: '失業', kana: 'しつぎょう', arti: 'Kehilangan pekerjaan' }, { kanji: '実際', kana: 'じっさい', arti: 'Yang sebenarnya/kenyataannya' }, { kanji: '実力', kana: 'じつりょく', arti: 'Kemampuan seseorg' }, { kanji: '支店', kana: 'してん', arti: 'Toko cabang' }, { kanji: '指導', kana: 'しどう', arti: 'membimbing' }, { kanji: '事務', kana: 'じむ', arti: 'Kerjaan kantor' }, { kanji: '締め切り', kana: 'しめきり', arti: 'Batas waktu' }, { kanji: 'じゃま', kana: '', arti: 'gangguan' }, { kanji: '集会', kana: 'しゅうかい', arti: 'pertemuan' }, { kanji: '宗教', kana: 'しゅうきょう', arti: 'agama' }, { kanji: '集合', kana: 'しゅうごう', arti: 'kumpul' }, { kanji: '就職', kana: 'しゅうしょく', arti: 'pekerjaan' }, { kanji: '集中', kana: 'しゅうちゅう', arti: 'fokus' }, { kanji: '充電', kana: 'じゅうでん', arti: 'mengisi(baterai)' }, { kanji: '修理', kana: 'しゅうり', arti: 'perbaikan' }, { kanji: '主義', kana: 'しゅぎ', arti: 'komitmen/prinsip' }, { kanji: '縮小', kana: 'しゅくしょう', arti: 'mengurangi' }, { kanji: '受信', kana: 'じゅしん', arti: 'menerima(email,pesan)' }, { kanji: '植える', kana: 'うえる', arti: 'menanam' }, { kanji: '受かる', kana: 'うかる', arti: 'lulus' }, { kanji: '浮く', kana: 'うく', arti: 'mengambang/mengapung/melayang' }, { kanji: '受け付ける', kana: 'うけつける', arti: 'menerima' }, { kanji: '受け取る', kana: 'うけとる', arti: 'menerima' }, { kanji: '動かす', kana: 'うごかす', arti: 'menggerakkan/memindahkan' }, { kanji: '移す', kana: 'うつす', arti: 'memindahkan(hal abstrak jg trmasuk)' }, { kanji: '写る', kana: 'うつる', arti: 'terfoto' }, { kanji: '裏返す', kana: 'うらがえす', arti: 'membalikkan' }, { kanji: '売り切れる', kana: 'うりきれる', arti: 'Habis terjual' }, { kanji: '追い掛ける', kana: 'おいかける', arti: 'mengejar' }, { kanji: '追い越す', kana: 'おいこす', arti: 'menyusul,menyalip' }, { kanji: '追い付く', kana: 'おいつく', arti: 'menyusul' }, { kanji: '贈る', kana: 'おくる', arti: 'Mengirim hadiah' }, { kanji: '行う', kana: 'おこなう', arti: 'mengadakan' }, { kanji: '押さえる', kana: 'おさえる', arti: 'memegang,menahan' }, { kanji: '落ち着く', kana: 'おちつく', arti: 'tenang' }, { kanji: '溺れる', kana: 'おぼれる', arti: 'tenggelam(kecelakaan)' }, { kanji: '追い付く', kana: 'おいつく', arti: 'Muncul ide' }, { kanji: '折れる', kana: 'おれる', arti: 'patah' }, { kanji: '下ろす', kana: 'おろす', arti: 'menurunkan' }, { kanji: '飼う', kana: 'かう', arti: 'memelihara' }, { kanji: '輝く', kana: 'かがやく', arti: 'bersinar(abstrakpun bisa)' }, { kanji: '隠す', kana: 'かくす', arti: 'menyembunyikan' }, { kanji: '苦しい', kana: 'くるしい', arti: 'menderita,kesusahan' }, { kanji: '詳しい', kana: 'くわしい', arti: 'detail' }, { kanji: '濃い', kana: 'こい', arti: 'pekat,kental(warna,rasa mknnan)' }, { kanji: '細かい', kana: 'こまかい', arti: 'kecil' }, { kanji: '塩辛い', kana: 'しおからい', arti: 'asin' }, { kanji: '四角い', kana: 'しかくい', arti: 'Persegi empat' }, { kanji: 'つらい', kana: '', arti: 'berat,menyakitkan' }, { kanji: 'ぬるい', kana: '', arti: 'hangat(air,cairan)' }, { kanji: '貧しい', kana: 'まずしい', arti: 'miskin' }, { kanji: '蒸し暑い', kana: 'むしあつい', arti: 'Panas gerah' }, { kanji: 'もったいない', kana: '', arti: 'mubazir,sia2' }, { kanji: 'ものすごい', kana: '', arti: 'Luar biasa' }, { kanji: '青い', kana: 'あおい', arti: 'biru' }, { kanji: '赤い', kana: 'あかい', arti: 'merah' }, { kanji: '明るい', kana: 'あかるい', arti: 'cerah,ceria' }, { kanji: '暖かい', kana: 'あたたかい', arti: 'hangat' }, { kanji: '頭がいい', kana: 'あたまがいい', arti: 'pintar/cerdas' }, { kanji: '暑い', kana: 'あつい', arti: 'panas' }, { kanji: '重い', kana: 'おもい', arti: 'berat' }, { kanji: '軽い', kana: 'かるい', arti: 'ringan' }, { kanji: '暗い', kana: 'くらい', arti: 'gelap' }, { kanji: '黒い', kana: 'くろい', arti: 'hitam' }, { kanji: '寒い', kana: 'さむい', arti: 'dingin' }, { kanji: '白い', kana: 'しろい', arti: 'putih' }, { kanji: '涼しい', kana: 'すずしい', arti: 'sejuk' }, { kanji: '正しい', kana: 'ただしい', arti: 'benar/tepat' }, { kanji: '楽しい', kana: 'たのしい', arti: 'menyenangkan' }, { kanji: '近い', kana: 'ちかい', arti: 'dekat' }, { kanji: '都合がいい', kana: 'つごうがいい', arti: 'cocok/sesuai' }, { kanji: '強い', kana: 'つよい', arti: 'kuat' }, { kanji: '低い', kana: 'ひくい', arti: 'rendah' }, { kanji: '広い', kana: 'ひろい', arti: 'luas' }, { kanji: '太い', kana: 'ふとい', arti: 'gemuk/gendut' }, { kanji: '細い', kana: 'ほそい', arti: 'kurus/ramping/tipis/sempit' }, { kanji: '短い', kana: 'みじかい', arti: 'pendek' }, { kanji: '良い', kana: 'よい', arti: 'bagus' }, { kanji: '弱い', kana: 'よわい', arti: 'lemah' }, { kanji: '悪い', kana: 'わるい', arti: 'buruk/jahat' }, { kanji: '元気', kana: 'げんき', arti: 'sehat/bersemangat' }, { kanji: '親切', kana: 'しんせつ', arti: 'Baik hati/ramah' }, { kanji: '好き', kana: 'すき', arti: 'suka' }, { kanji: '大事', kana: 'だいじ', arti: 'penting/berharga/berarti' }, { kanji: '大切', kana: 'たいせつ', arti: 'penting/berharga/berarti' }, { kanji: '大変', kana: 'たいへん', arti: 'susah/berat/sulit' }, { kanji: '特別', kana: 'とくべつ', arti: 'khusus/spesial/istimewa' }, { kanji: '不便', kana: 'ふべん', arti: 'Tdk praktis/tdk nyaman/merepotkan' }, { kanji: '変', kana: 'へん', arti: 'aneh/tidak biasa/tidak normal' }, { kanji: '有名', kana: 'ゆうめい', arti: 'terkenal' }, { kanji: '便利', kana: 'べんり', arti: 'praktis' }, { kanji: '普通', kana: 'ふつう', arti: 'biasa/normal' }, { kanji: '開ける', kana: 'あける', arti: 'membuka' }, { kanji: '開く', kana: 'あく', arti: 'terbuka(terbuka sendiri)' }, { kanji: '集まる', kana: 'あつまる', arti: 'berkumpul(berkumpul sendiri' }, { kanji: '集める', kana: 'あつめる', arti: 'mengumpulkan(sesuatu)' }, { kanji: '洗う', kana: 'あらう', arti: 'mencuci' }, { kanji: '歩く', kana: 'あるく', arti: 'berjalan' }, { kanji: '安心する', kana: 'あんしんする', arti: 'Merasa tenang/lega/aman' }, { kanji: '動く', kana: 'うごく', arti: 'bergerak' }, { kanji: '歌う', kana: 'うたう', arti: 'menyanyi' }, { kanji: '産む', kana: 'うむ', arti: 'melahirkan/menghasilkan sesuatu' }, { kanji: '売る', kana: 'うる', arti: 'menjual' }, { kanji: '運転する', kana: 'うんてんする', arti: 'mengemudi' }, { kanji: '運動する', kana: 'うんどうする', arti: 'berolahraga' }, { kanji: '起きる', kana: 'おきる', arti: 'bangun' }, { kanji: '送る', kana: 'おくる', arti: 'mengirim' }, { kanji: '教える', kana: 'おしえる', arti: 'mengajar/memberitahu' }, { kanji: '思い出す', kana: 'おもいだす', arti: 'mengingat/teringat' }, { kanji: '思う', kana: 'おもう', arti: 'berpikir/merasa' }, { kanji: '降りる', kana: 'おりる', arti: 'turun/menuruni' }, { kanji: '終わる', kana: 'おわる', arti: 'selesai/berakhir' }, { kanji: '返す', kana: 'かえす', arti: 'mengembalikan' }, { kanji: '帰る', kana: 'かえる', arti: 'pulang' }, { kanji: '貸す', kana: 'かす', arti: 'meminjamkan' }, { kanji: '通う', kana: 'かよう', arti: 'Pergi pulang-pergi(secara rutin)' }, { kanji: '借りる', kana: 'かりる', arti: 'meminjam' }, { kanji: '変わる', kana: 'かわる', arti: 'berubah/berganti(by itself)' }, { kanji: '考える', kana: 'かんがえる', arti: 'memikirkan/merenungkan' }, { kanji: '強調する', kana: 'きょうちょうする', arti: 'menekankan/menggarisbawahi' }, { kanji: '切る', kana: 'きる', arti: 'memotong/menebas' }, { kanji: '着る', kana: 'きる', arti: 'memakai/mengenakan(pakaian)' }, { kanji: '研究する', kana: 'けんきゅうする', arti: 'meneliti/mempelajari scr mndalam' }, { kanji: '答える', kana: 'こたえる', arti: 'menjawab/memberi jawaban' }, { kanji: '質問する', kana: 'しつもんする', arti: 'bertanya/mengajukan prtanyaan' }, { kanji: '死ぬ', kana: 'しぬ', arti: 'meninggal/mati' }, { kanji: '閉める', kana: 'しめる', arti: 'menutup(sesuatu)' }, { kanji: '出発する', kana: 'しゅっぱつする', arti: 'berangkat' }, { kanji: '知る', kana: 'しる', arti: 'mengetahui' }, { kanji: '信じる', kana: 'しんじる', arti: 'percaya/meyakini' }, { kanji: '進む', kana: 'すすむ', arti: 'maju/bergerak maju/berkembang' }, { kanji: '住む', kana: 'すむ', arti: 'tinggal/menetap' }, { kanji: '説明する', kana: 'せつめいする', arti: 'menjelaskan' }, { kanji: '世話をする', kana: 'せわをする', arti: 'merawat/mengurus' }, { kanji: '建てる', kana: 'たてる', arti: 'membangun/mendirikan' }, { kanji: '注意する', kana: 'ちゅういする', arti: 'memperhatikn/memberi pringatan' }, { kanji: '中止する', kana: 'ちゅうしする', arti: 'membatalkan/mnghentikan sementara' }, { kanji: '注文する', kana: 'ちゅうもんする', arti: 'memesan' }, { kanji: '使う', kana: 'つかう', arti: 'menggunakn' }, { kanji: '着く', kana: 'つく', arti: 'tiba(di suatu tmpat)' }, { kanji: '作る', kana: 'つくる', arti: 'membuat/mnghasilkan/menyusun' }, { kanji: '止まる', kana: 'とまる', arti: 'berhenti' }, { kanji: '間に合う', kana: 'まにあう', arti: 'Tepat waktu' }, { kanji: '入院する', kana: 'にゅういんする', arti: 'opname/masuk rs' }, { kanji: '習う', kana: 'ならう', arti: 'Mempelajari sesuatu dr seseorg' }, { kanji: '乗る', kana: 'のる', arti: 'naik/menaiki' }, { kanji: '運ぶ', kana: 'はこぶ', arti: 'mengangkut/membawa/memindahkan' }, { kanji: '始める', kana: 'はじめる', arti: 'memulai/mngawali' }, { kanji: '走る', kana: 'はしる', arti: 'berlari' }, { kanji: '働く', kana: 'はたらく', arti: 'bekerja' }, { kanji: '引く', kana: 'ひく', arti: 'menarik' }, { kanji: '変化する', kana: 'へんかする', arti: 'brubah/mngalami perubahan' }, { kanji: '勉強する', kana: 'べんきょうする', arti: 'belajar' }, { kanji: '待つ', kana: 'まつ', arti: 'menunggu' }, { kanji: '回す', kana: 'まわす', arti: 'memutar(sesuatu)' }, { kanji: '持つ', kana: 'もつ', arti: 'memiliki/menahan/membawa' }, { kanji: '用意する', kana: 'よういする', arti: 'mempersiapkan' }, { kanji: '利用する', kana: 'りようする', arti: 'memanfaatkan/mnggunakan/memakai' }, { kanji: '旅行する', kana: 'りょこうする', arti: 'bepergian(melakukan perjalanan)' }, { kanji: '別れる', kana: 'わかれる', arti: 'berpisah(putus hubungan)' }, { kanji: '映画館', kana: 'えいがかん', arti: 'bioskop' }, { kanji: '教室', kana: 'きょうしつ', arti: 'kelas' }, { kanji: '銀行', kana: 'ぎんこう', arti: 'bank' }, { kanji: '工場', kana: 'こうじょう', arti: 'pabrik' }, { kanji: '食堂', kana: 'しょくどう', arti: 'Ruang makan' }, { kanji: '京都市', kana: 'きょうとし', arti: 'Kota kyouto' }, { kanji: '大学院', kana: 'だいがくいん', arti: 'Program pascasarjana' }, { kanji: '大使館', kana: 'たいしかん', arti: 'kedutaan' }, { kanji: '建物', kana: 'たてもの', arti: 'bangunan' }, { kanji: '図書館', kana: 'としょかん', arti: 'perpustakaan' }, { kanji: '所', kana: 'ところ', arti: 'tempat' }, { kanji: '場所', kana: 'ばしょ', arti: 'tempat/lokasi' }, { kanji: '病院', kana: 'びょういん', arti: 'Rumah sakit' }, { kanji: '旅館', kana: 'りょかん', arti: 'Penginapan tradisional jepang' }, { kanji: '兄', kana: 'あに', arti: 'Kakak laki2' }, { kanji: '姉', kana: 'あね', arti: 'Kakak perempuan' }, { kanji: '妹', kana: 'いもうと', arti: 'Adik perempuan' }, { kanji: '弟', kana: 'おとうと', arti: 'Adik laki2' }, { kanji: 'お兄さん', kana: 'おにいさん', arti: 'Kakak laki2(org lain)' }, { kanji: 'お姉さん', kana: 'おねえさん', arti: 'Kakak perempuan(org lain)' }, { kanji: '親', kana: 'おや', arti: 'Orang tua' }, { kanji: '兄弟', kana: 'きょうだい', arti: 'Saudara laki2' }, { kanji: '姉妹', kana: 'しまい', arti: 'saudari' }, { kanji: '母親', kana: 'ははおや', arti: 'ibu' }, { kanji: '父親', kana: 'ちちおや', arti: 'ayah' }, { kanji: '両親', kana: 'りょうしん', arti: 'Orang tua' }, { kanji: '医者', kana: 'いしゃ', arti: 'dokter' }, { kanji: '歌手', kana: 'かしゅ', arti: 'penyanyi' }, { kanji: '仕事', kana: 'しごと', arti: 'perkerjaa' }, { kanji: '店員', kana: 'てんいん', arti: 'Pegawai toko' }, { kanji: '自転車', kana: 'じてんしゃ', arti: 'sepeda' }, { kanji: '自動車', kana: 'じどうしゃ', arti: 'mobil' }, { kanji: '信号', kana: 'しんごう', arti: 'Lampu lalu lintas' }, { kanji: '交通', kana: 'こうつう', arti: 'transportasi/lalulintas' }, { kanji: '地下鉄', kana: 'ちかてつ', arti: 'Kereta bawah tanah' }, { kanji: '特急', kana: 'とっきゅう', arti: 'Kereta express khusus' }, { kanji: '朝', kana: 'あさ', arti: 'pagi' }, { kanji: '明日', kana: 'あした', arti: 'besok' }, { kanji: '今朝', kana: 'けさ', arti: 'Tadi pagi' }, { kanji: '今度', kana: 'こんど', arti: 'Kali ini/lain kali' }, { kanji: '今晩', kana: 'こんばん', arti: 'Malam ini' }, { kanji: '今夜', kana: 'こんや', arti: 'Malam ini' }, { kanji: '夏休み', kana: 'なつやすみ', arti: 'Liburan musim panas' }, { kanji: '昼', kana: 'ひる', arti: 'siang' }, { kanji: '昼休み', kana: 'ひるやすみ', arti: 'Istahat siang' }, { kanji: '夕方', kana: 'ゆうがた', arti: 'sore' }, { kanji: '夜', kana: 'よる', arti: 'malam' }, { kanji: '秋', kana: 'あき', arti: 'Musim gugur/autumn' }, { kanji: '季節', kana: 'きせつ', arti: 'musim' }, { kanji: '夏', kana: 'なつ', arti: 'Musim panas' }, { kanji: '春', kana: 'はる', arti: 'Musim semi' }, { kanji: '冬', kana: 'ふゆ', arti: 'Musim dingin' }, { kanji: '味', kana: 'あじ', arti: 'rasa(makanan)' }, { kanji: '頭', kana: 'あたま', arti: 'kepala' }, { kanji: '以下', kana: 'いか', arti: 'dibawah/kurang dari' }, { kanji: '以外', kana: 'いがい', arti: 'selain/kecuali' }, { kanji: '池', kana: 'いけ', arti: 'kolam(buatan dan kecil)' }, { kanji: '意見', kana: 'いけん', arti: 'pendapat' }, { kanji: '以上', kana: 'いじょう', arti: 'Lebih dari/diatas/sekian' }, { kanji: '一回', kana: 'いっかい', arti: 'Satu kali/sekali' }, { kanji: '犬', kana: 'いぬ', arti: 'anjing' }, { kanji: '意味', kana: 'いみ', arti: 'arti' }, { kanji: '色', kana: 'いろ', arti: 'warna' }, { kanji: '海', kana: 'うみ', arti: 'laut' }, { kanji: '映画', kana: 'えいが', arti: 'film' }, { kanji: '英語', kana: 'えいご', arti: 'Bahasa inggris' }, { kanji: '屋上', kana: 'おくじょう', arti: 'atap(bangunan/rooftop)' }, { kanji: 'お茶', kana: 'おちゃ', arti: 'Teh hijau' }, { kanji: '同じ', kana: 'おなじ', arti: 'sama' }, { kanji: '音', kana: 'おと', arti: 'bunyi/auara' }, { kanji: '音楽', kana: 'おんがく', arti: 'musik' }, { kanji: '海外', kana: 'かいがい', arti: 'Luar nereri' }, { kanji: '買い物', kana: 'かいもの', arti: 'belanja/berbelanja' }, { kanji: '科学', kana: 'かがく', arti: 'Ilmu pengetahuan' }, { kanji: '顔', kana: 'かお', arti: 'wajah' }, { kanji: '火事', kana: 'かじ', arti: 'kebakaran' }, { kanji: '形', kana: 'かたち', arti: 'bentuk/wujud/form' }, { kanji: '紙', kana: 'かみ', arti: 'kertas' }, { kanji: '体', kana: 'からだ', arti: 'tubuh/badan' }, { kanji: '代わりに', kana: 'かわりに', arti: 'Sbg pengganti/sbg gantinya' }, { kanji: '漢字', kana: 'かんじ', arti: 'kanji' }, { kanji: '気持ち', kana: 'きもち', arti: 'perasaan/mood' }, { kanji: '着物', kana: 'きもの', arti: 'kimono' }, { kanji: '教科書', kana: 'きょうかしょ', arti: 'Buku pelajaran' }, { kanji: '首', kana: 'くび', arti: 'leher' }, { kanji: '子犬', kana: 'こいぬ', arti: 'Anak anjing' }, { kanji: '工業', kana: 'こうぎょう', arti: 'Industri manukfaktur' }, { kanji: '声', kana: 'こえ', arti: 'suara(manusia atau hewan)' }, { kanji: '心', kana: 'こころ', arti: 'hati/jiwa/pikiran' }, { kanji: '米', kana: 'こめ', arti: 'beras' }, { kanji: '作文', kana: 'さくぶん', arti: 'karangan/essai/tulisan' }, { kanji: '産業', kana: 'さんぎょう', arti: 'industri/sektor produksi' }, { kanji: '字', kana: 'じ', arti: 'huruf' }, { kanji: '自分', kana: 'じぶん', arti: 'Diri sendiri/myself' }, { kanji: '小説', kana: 'しょうせつ', arti: 'novel/cerita fiksi' }, { kanji: '主人', kana: 'しゅじん', arti: 'suami/tuan/pemilik rumah' }, { kanji: '正月', kana: 'しょうがつ', arti: 'Tahun baru' }, { kanji: '世界', kana: 'せかい', arti: 'dunia' }, { kanji: '風', kana: 'かぜ', arti: 'angin' }, { kanji: '切手', kana: 'きって', arti: 'perangko/stamp' }, { kanji: '急に', kana: 'きゅうに', arti: 'tiba2' }, { kanji: '牛肉', kana: 'ぎゅうにく', arti: 'Daging sapi' }, { kanji: '近所', kana: 'きんじょ', arti: 'sekitar/lingkungan sekitar/tetangga' }, { kanji: '区', kana: 'く', arti: 'distrik/wilayah' }, { kanji: '薬', kana: 'くすり', arti: 'obat' }, { kanji: '計画', kana: 'けいかく', arti: 'rencana' }, { kanji: '小鳥', kana: 'ことり', arti: 'Burung kecil' }, { kanji: 'ご飯', kana: 'ごはん', arti: 'nasi/makanan' }, { kanji: '品物', kana: 'しなもの', arti: 'barang/item/produk' }, { kanji: '試合', kana: 'しあい', arti: 'pertandingan' }, { kanji: '試験', kana: 'しけん', arti: 'ujian/test' }, { kanji: '市民', kana: 'しみん', arti: 'Warga kota/citizen' }, { kanji: '写真', kana: 'しゃしん', arti: 'foto' }, { kanji: '住所', kana: 'じゅうしょ', arti: 'alamat(tempat tinggal)' }, { kanji: '食料品', kana: 'しょくりょうひん', arti: 'Bahan makanan' }, { kanji: '説明', kana: 'せつめい', arti: 'penjelasan' }, { kanji: '台所', kana: 'だいどころ', arti: 'dapur' }, { kanji: '台風', kana: 'たいふう', arti: 'topan' }, { kanji: '地図', kana: 'ちず', arti: 'peta/map' }, { kanji: '茶色', kana: 'ちゃいろ', arti: 'Warna coklat' }, { kanji: '地理', kana: 'ちり', arti: 'geografi' }, { kanji: '手紙', kana: 'てがみ', arti: 'surat' }, { kanji: '天気', kana: 'てんき', arti: 'cuaca' }, { kanji: '電池', kana: 'でんち', arti: 'baterai' }, { kanji: '動物', kana: 'どうぶつ', arti: 'hewan' }, { kanji: '特に', kana: 'とくに', arti: 'terutama/scr khusus' }, { kanji: '時計', kana: 'とけい', arti: 'jam' }, { kanji: '鳥', kana: 'とり', arti: 'burung' }, { kanji: '肉', kana: 'にく', arti: 'daging' }, { kanji: '日曜日', kana: 'にちようび', arti: 'Hari minggu' }, { kanji: '人形', kana: 'にんぎょう', arti: 'boneka' }, { kanji: '林', kana: 'はやし', arti: 'Hutan kecil/kelmpok pohon' }, { kanji: '晩ご飯', kana: 'ばんごはん', arti: 'Makan malam' }, { kanji: '光', kana: 'ひかり', arti: 'cahaya/sinar/kilau' }, { kanji: '病気', kana: 'びょうき', arti: 'sakit' }, { kanji: '服', kana: 'ふく', arti: 'pakaian' }, { kanji: '文', kana: 'ぶん', arti: 'kalimat' }, { kanji: '文学', kana: 'ぶんがく', arti: 'sastra' }, { kanji: '分野', kana: 'ぶんや', arti: 'bidang/area' }, { kanji: '引き出し', kana: 'ひきだし', arti: 'laci' }, { kanji: '本屋', kana: 'ほんや', arti: 'Toko buku' }, { kanji: '町', kana: 'まち', arti: 'Kota kecil' }, { kanji: '真ん中', kana: 'まんなか', arti: 'tengah/pusat/ditengah2' }, { kanji: '村', kana: 'むら', arti: 'desa' }, { kanji: '森', kana: 'もり', arti: 'hutan' }, { kanji: '問題', kana: 'もんだい', arti: 'masalah/soal' }, { kanji: '野菜', kana: 'やさい', arti: 'sayur' }, { kanji: '夕食', kana: 'ゆうしょく', arti: 'Makan mlm' }, { kanji: '雪', kana: 'ゆき', arti: 'salju' }, { kanji: '用事', kana: 'ようじ', arti: 'urusan/keperluan/pekerjaan yg hrs dilakukan' }, { kanji: '洋服', kana: 'ようふく', arti: 'Pakaian barat' }, { kanji: '料金', kana: 'りょうきん', arti: 'biaya/tarif' }, { kanji: '両方', kana: 'りょうほう', arti: 'keduanya/both' }, { kanji: '料理', kana: 'りょうり', arti: 'masakan' }
+        ];
+
+        const encouragementMessages = [ "You're doing great! ✨", "Awesome! 👍", "Keep it up! 🚀", "Super smart! 🧠", "Wow! 🎉", "You're a star! ⭐", "Fantastic! 😃", "Brilliant! 💡" ];
+        const tryAgainMessages = [ "Don't worry, try again! 😊", "You can do it! 💪", "Learning is a journey! 🗺️", "Keep trying! ✨" ];
+        
+        // **FIX**: The audio data is now correctly labeled as 'audio/wav'.
+        const encouragementSound = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YUIAAABvT1/wAQABAC_w//Dx8vHx8_Hw8fHw8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fLw8fHw8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHw8fHx8fHx8fHx8fHx8vHy8fHx8fHw8fHx8fHy8fHx8fHx8fHx8fHx8fHx8fHx8fLw8fHw8fHx8fHx8fHx8vHx8fHw8fHx8fHx8fHx8fLw8fHy8fLw8fHx8fLw8vHx8fHx8fLw8vHx8fHx8vLw8vHy8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw-');
+        
+        const TIME_LIMIT = 12;
+        const FULL_DASH_ARRAY = 2 * Math.PI * 45; // Circle radius is 45
+        let countdownInterval = null;
+
+        // --- State Management ---
+        let gameState = {
+            words: [],
+            last100Scores: [],
+            totalScore: 0,
+            questionsAttempted: 0,
+            consecutiveWrongAnswers: 0,
+            currentQuestion: null,
+            selectedAnswer: null,
+            isAnswered: false,
+            questionsSinceEncouragement: 0,
+            nextEncouragementInterval: 0
+        };
+
+        // --- DOM Elements ---
+        const questionTextKanji = document.getElementById('question-text-kanji');
+        const questionTextKana = document.getElementById('question-text-kana');
+        const choicesContainer = document.getElementById('choices-container');
+        const checkButton = document.getElementById('check-button');
+        const skipButton = document.getElementById('skip-button');
+        const gameCompleteDiv = document.getElementById('game-complete');
+        const encouragementPopup = document.getElementById('encouragement-popup');
+        const encouragementText = document.getElementById('encouragement-text');
+        const timerProgress = document.getElementById('timer-progress');
+        const timerText = document.getElementById('timer-text');
+
+        // --- Similarity Metric ---
+        function levenshteinDistance(a, b) {
+            if (a.length === 0) return b.length;
+            if (b.length === 0) return a.length;
+            const matrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(null));
+            for (let i = 0; i <= a.length; i++) { matrix[0][i] = i; }
+            for (let j = 0; j <= b.length; j++) { matrix[j][0] = j; }
+            for (let j = 1; j <= b.length; j++) {
+                for (let i = 1; i <= a.length; i++) {
+                    const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                    matrix[j][i] = Math.min(matrix[j][i - 1] + 1, matrix[j - 1][i] + 1, matrix[j - 1][i - 1] + cost);
+                }
+            }
+            return matrix[b.length][a.length];
+        }
+
+        // --- Game Logic ---
+        function init() {
+            loadState();
+            if (gameState.nextEncouragementInterval === 0) {
+                 gameState.nextEncouragementInterval = getRandomInterval(4, 9);
+            }
+            updateStats();
+            generateNewQuestion();
+
+            // **FIX**: This "primes" the audio context on the first click anywhere,
+            // which is required by modern browsers to allow sound to play later.
+            function primeAudio() {
+                encouragementSound.play().catch(()=>{});
+                encouragementSound.pause();
+                encouragementSound.currentTime = 0;
+                document.body.removeEventListener('click', primeAudio, true);
+            }
+            document.body.addEventListener('click', primeAudio, true);
+
+            checkButton.addEventListener('click', () => {
+                if (gameState.isAnswered) generateNewQuestion();
+                else checkAnswer();
+            });
+
+            skipButton.addEventListener('click', () => {
+                if (!gameState.isAnswered) {
+                    clearInterval(countdownInterval);
+                    processAnswer(0);
+                }
+            });
+        }
+
+        function generateNewQuestion() {
+            gameState.isAnswered = false;
+            gameState.selectedAnswer = null;
+
+            let chosenWord;
+            const unmasteredWords = gameState.words.filter(w => !w.state.mastered);
+
+            if (unmasteredWords.length === 0) {
+                showGameComplete();
+                return;
+            }
+
+            if (gameState.consecutiveWrongAnswers >= 3) {
+                const easyWords = unmasteredWords.filter(w => w.state.correctStreak > 0);
+                if (easyWords.length > 0) {
+                    easyWords.sort((a, b) => b.state.correctStreak - a.state.correctStreak);
+                    chosenWord = easyWords[0];
+                }
+            }
+
+            if (!chosenWord) {
+                const totalWeight = unmasteredWords.reduce((sum, word) => sum + word.state.score, 0);
+                let randomWeight = Math.random() * totalWeight;
+                for (const word of unmasteredWords) {
+                    randomWeight -= word.state.score;
+                    if (randomWeight <= 0) {
+                        chosenWord = word;
+                        break;
+                    }
+                }
+            }
+            
+            if (!chosenWord) chosenWord = unmasteredWords[0];
+
+            gameState.currentQuestion = { word: chosenWord, correctAnswer: chosenWord.arti };
+            displayQuestion();
+            startTimer();
+        }
+        
+        function displayQuestion() {
+            const { word } = gameState.currentQuestion;
+            questionTextKanji.textContent = word.kanji || word.kana;
+            questionTextKana.textContent = word.kana;
+
+            const distractors = gameState.words
+                .map(w => w.arti)
+                .filter(arti => arti && arti !== word.arti)
+                .map(arti => ({ value: arti, similarity: levenshteinDistance(word.arti, arti) }))
+                .sort((a, b) => a.similarity - b.similarity)
+                .slice(0, 3)
+                .map(item => item.value);
+
+            let choices = [word.arti, ...distractors];
+            choices.sort(() => Math.random() - 0.5);
+
+            choicesContainer.innerHTML = '';
+            choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.className = 'choice-btn w-full py-3 px-4 bg-white text-slate-700 font-semibold rounded-lg shadow ring-1 ring-slate-200 hover:bg-slate-50';
+                button.textContent = choice;
+                button.addEventListener('click', () => selectAnswer(button));
+                choicesContainer.appendChild(button);
+            });
+
+            checkButton.textContent = 'Check Answer';
+            checkButton.disabled = true;
+            skipButton.disabled = false;
+        }
+
+        function selectAnswer(button) {
+            if (gameState.isAnswered) return;
+            const prevSelected = choicesContainer.querySelector('.selected');
+            if (prevSelected) prevSelected.classList.remove('selected');
+            button.classList.add('selected');
+            gameState.selectedAnswer = button.textContent;
+            checkButton.disabled = false;
+        }
+
+        function checkAnswer() {
+            clearInterval(countdownInterval);
+            gameState.isAnswered = true;
+            const { correctAnswer } = gameState.currentQuestion;
+            const isCorrect = gameState.selectedAnswer === correctAnswer;
+            const score = isCorrect ? 1 : -0.25;
+
+            Array.from(choicesContainer.children).forEach(btn => {
+                if (btn.textContent === correctAnswer) btn.classList.add('correct');
+                else if (btn.classList.contains('selected')) btn.classList.add('incorrect');
+                btn.disabled = true;
+            });
+
+            processAnswer(score);
+            
+            checkButton.textContent = 'Next Question';
+            checkButton.disabled = false;
+            skipButton.disabled = true;
+        }
+
+        function processAnswer(score) {
+            const { word } = gameState.currentQuestion;
+            const isCorrect = score > 0;
+
+            if (score !== 0) {
+                gameState.questionsSinceEncouragement++;
+                gameState.totalScore += score;
+                gameState.questionsAttempted++;
+            }
+            gameState.last100Scores.push(score);
+            if (gameState.last100Scores.length > 100) gameState.last100Scores.shift();
+
+            if (isCorrect) {
+                gameState.consecutiveWrongAnswers = 0;
+                word.state.correctStreak++;
+                word.state.score = Math.max(1, word.state.score - 2);
+                if (word.state.correctStreak >= 8) word.state.mastered = true;
+            } else if (score < 0) {
+                gameState.consecutiveWrongAnswers++;
+                word.state.correctStreak = 0;
+                word.state.score += 5;
+            }
+
+            // **FIX**: Decoupled the logic to ensure the "3 wrong" message trigger is checked independently.
+            let encouragementShown = false;
+            if (gameState.consecutiveWrongAnswers === 3) {
+                const message = tryAgainMessages[Math.floor(Math.random() * tryAgainMessages.length)];
+                showEncouragement(message, false); // Pass 'false' as it's not a random trigger
+                encouragementShown = true;
+            }
+            
+            if (!encouragementShown && gameState.questionsSinceEncouragement >= gameState.nextEncouragementInterval) {
+                showEncouragement(null, true); // Pass 'true' as it IS a random trigger
+            }
+
+            updateStats();
+            saveState();
+
+            if (score === 0) generateNewQuestion();
+        }
+
+        // --- Timer Functions ---
+        function startTimer() {
+            clearInterval(countdownInterval);
+            let timeLeft = TIME_LIMIT;
+
+            const updateTimerDisplay = () => {
+                timerText.textContent = timeLeft;
+                const offset = FULL_DASH_ARRAY * (1 - (timeLeft / TIME_LIMIT));
+                timerProgress.style.strokeDasharray = `${FULL_DASH_ARRAY}`;
+                timerProgress.style.strokeDashoffset = offset;
+                timerProgress.classList.remove('text-yellow-500', 'text-red-500', 'text-blue-500');
+                if (timeLeft <= 5) timerProgress.classList.add('text-red-500');
+                else if (timeLeft <= 8) timerProgress.classList.add('text-yellow-500');
+                else timerProgress.classList.add('text-blue-500');
+            };
+
+            updateTimerDisplay();
+
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    gameState.selectedAnswer = null;
+                    checkAnswer();
+                }
+            }, 1000);
+        }
+
+        // --- UI and Sound Functions ---
+        function playChime() {
+            encouragementSound.currentTime = 0;
+            encouragementSound.play().catch(e => {
+                console.error("Audio playback failed. This can happen if you haven't clicked the page yet.", e);
+            });
+        }
+
+        // **FIX**: Added 'isRandomTrigger' parameter to correctly handle state resets.
+        function showEncouragement(message = null, isRandomTrigger = false) {
+            playChime();
+            const randomMessage = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
+            encouragementText.textContent = message || randomMessage;
+            encouragementPopup.classList.remove('hidden');
+            
+            if (isRandomTrigger) {
+                gameState.questionsSinceEncouragement = 0;
+                gameState.nextEncouragementInterval = getRandomInterval(4, 9);
+            }
+
+            setTimeout(() => encouragementPopup.classList.add('hidden'), 2500);
+        }
+        
+        function getRandomInterval(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function showGameComplete() {
+            clearInterval(countdownInterval);
+            document.getElementById('timer-container').classList.add('hidden');
+            questionTextKanji.parentElement.classList.add('hidden');
+            choicesContainer.classList.add('hidden');
+            document.getElementById('action-buttons').classList.add('hidden');
+            gameCompleteDiv.classList.remove('hidden');
+        }
+
+        function updateStats() {
+            const overallPercentage = gameState.questionsAttempted > 0 ? ((gameState.totalScore / gameState.questionsAttempted) * 100).toFixed(0) : 0;
+            document.getElementById('overall-score').textContent = `${overallPercentage}%`;
+            
+            const last100Total = gameState.last100Scores.reduce((sum, s) => sum + s, 0);
+            document.getElementById('last100-score').textContent = last100Total.toFixed(2);
+            
+            const masteredCount = gameState.words.filter(w => w.state.mastered).length;
+            document.getElementById('mastered-score').textContent = `${masteredCount}/${gameState.words.length}`;
+        }
+
+        // --- Local Storage ---
+        function saveState() {
+            // Updated version number to prevent conflicts with old saved data
+            localStorage.setItem('japaneseGameStateN3_SRS_v5', JSON.stringify(gameState));
+        }
+
+        function loadState() {
+            const savedState = localStorage.getItem('japaneseGameStateN3_SRS_v5');
+            if (savedState) {
+                const parsedState = JSON.parse(savedState);
+                if (parsedState.words && parsedState.words.length === initialVocabularyData.length) {
+                    gameState = parsedState;
+                    return;
+                }
+            }
+            gameState.words = initialVocabularyData.map((word, index) => ({
+                ...word,
+                id: index,
+                state: { correctStreak: 0, score: 10, mastered: false }
+            }));
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
