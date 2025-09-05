@@ -102,9 +102,6 @@
         const encouragementMessages = [ "You're doing great! ✨", "Awesome! 👍", "Keep it up! 🚀", "Super smart! 🧠", "Wow! 🎉", "You're a star! ⭐", "Fantastic! 😃", "Brilliant! 💡" ];
         const tryAgainMessages = [ "Don't worry, try again! 😊", "You can do it! 💪", "Learning is a journey! 🗺️", "Keep trying! ✨" ];
         
-        // **FIX**: The audio data is now correctly labeled as 'audio/wav'.
-        const encouragementSound = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YUIAAABvT1/wAQABAC_w//Dx8vHx8_Hw8fHw8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fLw8fHw8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHw8fHx8fHx8fHx8fHx8vHy8fHx8fHw8fHx8fHy8fHx8fHx8fHx8fHx8fHx8fHx8fLw8fHw8fHx8fHx8fHx8vHx8fHw8fHx8fHx8fHx8fLw8fHy8fLw8fHx8fLw8vHx8fHx8fLw8vHx8fHx8vLw8vHy8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw8vLw-');
-        
         const TIME_LIMIT = 12;
         const FULL_DASH_ARRAY = 2 * Math.PI * 45; // Circle radius is 45
         let countdownInterval = null;
@@ -159,16 +156,6 @@
             }
             updateStats();
             generateNewQuestion();
-
-            // **FIX**: This "primes" the audio context on the first click anywhere,
-            // which is required by modern browsers to allow sound to play later.
-            function primeAudio() {
-                encouragementSound.play().catch(()=>{});
-                encouragementSound.pause();
-                encouragementSound.currentTime = 0;
-                document.body.removeEventListener('click', primeAudio, true);
-            }
-            document.body.addEventListener('click', primeAudio, true);
 
             checkButton.addEventListener('click', () => {
                 if (gameState.isAnswered) generateNewQuestion();
@@ -304,16 +291,15 @@
                 word.state.score += 5;
             }
 
-            // **FIX**: Decoupled the logic to ensure the "3 wrong" message trigger is checked independently.
             let encouragementShown = false;
             if (gameState.consecutiveWrongAnswers === 3) {
                 const message = tryAgainMessages[Math.floor(Math.random() * tryAgainMessages.length)];
-                showEncouragement(message, false); // Pass 'false' as it's not a random trigger
+                showEncouragement(message, false);
                 encouragementShown = true;
             }
             
             if (!encouragementShown && gameState.questionsSinceEncouragement >= gameState.nextEncouragementInterval) {
-                showEncouragement(null, true); // Pass 'true' as it IS a random trigger
+                showEncouragement(null, true);
             }
 
             updateStats();
@@ -352,16 +338,7 @@
         }
 
         // --- UI and Sound Functions ---
-        function playChime() {
-            encouragementSound.currentTime = 0;
-            encouragementSound.play().catch(e => {
-                console.error("Audio playback failed. This can happen if you haven't clicked the page yet.", e);
-            });
-        }
-
-        // **FIX**: Added 'isRandomTrigger' parameter to correctly handle state resets.
         function showEncouragement(message = null, isRandomTrigger = false) {
-            playChime();
             const randomMessage = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
             encouragementText.textContent = message || randomMessage;
             encouragementPopup.classList.remove('hidden');
@@ -401,11 +378,11 @@
         // --- Local Storage ---
         function saveState() {
             // Updated version number to prevent conflicts with old saved data
-            localStorage.setItem('japaneseGameStateN3_SRS_v5', JSON.stringify(gameState));
+            localStorage.setItem('japaneseGameStateN3_SRS_v6', JSON.stringify(gameState));
         }
 
         function loadState() {
-            const savedState = localStorage.getItem('japaneseGameStateN3_SRS_v5');
+            const savedState = localStorage.getItem('japaneseGameStateN3_SRS_v6');
             if (savedState) {
                 const parsedState = JSON.parse(savedState);
                 if (parsedState.words && parsedState.words.length === initialVocabularyData.length) {
