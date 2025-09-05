@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese N3 Vocabulary Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            touch-action: manipulation; /* Prevents double-tap zoom on mobile */
+        }
+        .card-container {
+            perspective: 1000px;
+        }
+        .card {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        .encouragement-popup {
+            font-family: 'Mochiy Pop One', sans-serif;
+            animation: fadeInOut 3s ease-in-out forwards;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: scale(0.9); }
+            10%, 90% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 flex items-center justify-center h-screen overflow-hidden">
+
+    <div id="app" class="w-full max-w-md mx-auto h-[90vh] flex flex-col p-4">
+        <!-- Stats Header -->
+        <header class="mb-4 bg-white p-4 rounded-xl shadow-md">
+            <h1 class="text-xl font-bold text-center text-slate-700 mb-3">Vocabulary Practice Stats</h1>
+            <div class="grid grid-cols-3 gap-2 text-center">
+                <div>
+                    <div class="text-sm font-semibold text-slate-500">PERFECT</div>
+                    <div id="perfect-score" class="text-2xl font-bold text-teal-500">0%</div>
+                </div>
+                <div>
+                    <div class="text-sm font-semibold text-slate-500">LAST 100</div>
+                    <div id="last100-score" class="text-2xl font-bold text-indigo-500">0</div>
+                </div>
+                <div>
+                    <div class="text-sm font-semibold text-slate-500">MASTERED</div>
+                    <div id="mastered-score" class="text-2xl font-bold text-amber-500">0</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 gap-2 text-center">
+                <div class="text-sm font-semibold text-slate-500"><a href="./japanese_game.html">NEW VERSION!</a></div>
+            </div>
+        </header>
+
+        <!-- Card -->
+        <main class="card-container w-full flex-grow relative mb-4">
+            <div id="card" class="card w-full h-full">
+                <!-- Front of Card (Question) -->
+                <div class="card-face card-front bg-white rounded-xl shadow-lg p-6 text-center">
+                    <div class="text-sm text-slate-500 mb-4" id="question-type"></div>
+                    <div class="text-3xl sm:text-4xl md:text-5xl font-bold" id="question-text"></div>
+                </div>
+                <!-- Back of Card (Answer) -->
+                <div class="card-face card-back bg-white rounded-xl shadow-lg p-6 text-center">
+                    <div id="answer-container">
+                        <div class="mb-4">
+                            <p class="text-sm text-slate-500">Cara Baca</p>
+                            <p class="text-xl sm:text-2xl font-semibold text-sky-600" id="answer-cara-baca"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-500">Arti</p>
+                            <p class="text-xl sm:text-2xl font-semibold text-sky-600" id="answer-arti"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Action Buttons -->
+        <footer>
+            <!-- Question Buttons -->
+            <div id="question-buttons" class="flex justify-around space-x-4">
+                <button id="flip-button" class="w-full py-3 px-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition-colors transform hover:scale-105">Show Answer</button>
+                <button id="skip-button" class="w-full py-3 px-4 bg-slate-400 text-white font-bold rounded-lg shadow-md hover:bg-slate-500 transition-colors transform hover:scale-105">Skip</button>
+            </div>
+            <!-- Answer Buttons -->
+            <div id="answer-buttons" class="hidden grid grid-cols-3 gap-2 md:gap-4">
+                <button onclick="handleScore(-1)" class="text-sm sm:text-base py-3 px-2 sm:px-4 bg-red-500 text-white font-bold rounded-lg shadow-md hover:bg-red-600 transition-colors transform hover:scale-105">-1 (Forgot)</button>
+                <button onclick="handleScore(0.5)" class="text-sm sm:text-base py-3 px-2 sm:px-4 bg-yellow-500 text-white font-bold rounded-lg shadow-md hover:bg-yellow-600 transition-colors transform hover:scale-105">+0.5 (Almost)</button>
+                <button onclick="handleScore(1)" class="text-sm sm:text-base py-3 px-2 sm:px-4 bg-green-500 text-white font-bold rounded-lg shadow-md hover:bg-green-600 transition-colors transform hover:scale-105">+1 (Perfect)</button>
+            </div>
+        </footer>
+
+        <!-- Encouragement Popup -->
+        <div id="encouragement-popup" class="encouragement-popup hidden fixed inset-0 flex items-center justify-center pointer-events-none">
+            <div class="bg-white p-8 rounded-full shadow-2xl text-3xl text-pink-500">
+                <span id="encouragement-text"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const vocabularyData = [
+            { kanji: '愛情', kana: 'あいじょう', caraBaca: 'aijoo', arti: 'Kasih sayang(rasa)' },
+            { kanji: '握手', kana: 'あくしゅ', caraBaca: 'akusyu', arti: 'bersalaman' },
+            { kanji: 'アクセス', kana: '', caraBaca: 'akusesu', arti: 'akses' },
+            { kanji: '集まり', kana: 'あつまり', caraBaca: 'atsumari', arti: 'perkumpulan' },
+            { kanji: '宛名', kana: 'あてな', caraBaca: 'atena', arti: 'alamat(tujuan)' },
+            { kanji: '後片付け', kana: 'あとかたづけ', caraBaca: 'atokatadsuke', arti: 'beres2(setelah)' },
+            { kanji: 'アドバイス', kana: '', caraBaca: 'adobaisu', arti: 'saran' },
+            { kanji: '穴', kana: 'あな', caraBaca: 'ana', arti: 'lubang' },
+            { kanji: '余り', kana: 'あまり', caraBaca: 'amari', arti: 'sisa,berlebih' },
+            { kanji: 'アンケート', kana: '', caraBaca: 'ankeeto', arti: 'angket,survei' },
+            { kanji: 'いたずら', kana: '', caraBaca: 'itazura', arti: 'nakal' },
+            { kanji: '一部', kana: 'いちぶ', caraBaca: 'ichibu', arti: 'sebagian' },
+            { kanji: '一瞬', kana: 'いっしゅん', caraBaca: 'issyun', arti: 'sejenak,sekilas' },
+            { kanji: '違反', kana: 'いはん', caraBaca: 'ihan', arti: 'pelanggaran' },
+            { kanji: 'イベント', kana: '', caraBaca: 'ibento', arti: 'acara,kegiatan' },
+            { kanji: 'イメージ', kana: '', caraBaca: 'imeeji', arti: 'image,gambaran' },
+            { kanji: '印刷', kana: 'いんさつ', caraBaca: 'insatsu', arti: 'print' },
+            { kanji: '印象', kana: 'いんしょう', caraBaca: 'insyoo', arti: 'kesan,berkesan' },
+            { kanji: 'インタビュー', kana: '', caraBaca: 'intabyuu', arti: 'wawancara' },
+            { kanji: '影響', kana: 'えいきょう', caraBaca: 'eikyoo', arti: 'efek/pengaruh/dampak' },
+            { kanji: '内側', kana: 'うちがわ', caraBaca: 'uchigawa', arti: 'Bagian dalam' },
+            { kanji: 'エコ', kana: '', caraBaca: 'eko', arti: 'Ramah lingkungan' },
+            { kanji: '営業', kana: 'えいぎょう', caraBaca: 'eigyoo', arti: 'beroperasi' },
+            { kanji: 'エネルギー', kana: '', caraBaca: 'enerugii', arti: 'energi' },
+            { kanji: 'オイル', kana: '', caraBaca: 'oiru', arti: 'oil,minyak' },
+            { kanji: 'お祝い', kana: 'おいわい', caraBaca: 'oiwai', arti: 'perayaan' },
+            { kanji: '応援', kana: 'おうえん', caraBaca: 'ooen', arti: 'mendukung' },
+            { kanji: '大型', kana: 'おおがた', caraBaca: 'oogata', arti: 'besar' },
+            { kanji: 'おしゃべり', kana: '', caraBaca: 'osyaberi', arti: 'obrolan' },
+            { kanji: '落とし物', kana: 'おとしもの', caraBaca: 'otoshimono', arti: 'Brg hilang/jatuh' },
+            { kanji: '思い出', kana: 'おもいで', caraBaca: 'omoide', arti: 'kenangan' },
+            { kanji: '開会', kana: 'かいかい', caraBaca: 'kaikai', arti: 'Pmbukaan prtemuan' },
+            { kanji: '解決', kana: 'かいけつ', caraBaca: 'kaiketsu', arti: 'solusi/menyelesaikn' },
+            { kanji: '外出', kana: 'がいしゅつ', caraBaca: 'gaisyutsu', arti: 'Pergi keluar' },
+            { kanji: '改正', kana: 'かいせい', caraBaca: 'kaisei', arti: 'revisi/amandemen' },
+            { kanji: '解説', kana: 'かいせつ', caraBaca: 'kaisetsu', arti: 'penjelasan' },
+            { kanji: '回転', kana: 'かいてん', caraBaca: 'kaiten', arti: 'berputar,memutar/rotasi' },
+            { kanji: '書留', kana: 'かきとめ', caraBaca: 'kakitome', arti: 'surat trcatat' },
+            { kanji: '拡大', kana: 'かくだい', caraBaca: 'kakudai', arti: 'membesarkan(dizoom)' },
+            { kanji: '家事', kana: 'かじ', caraBaca: 'kaji', arti: 'Pekerjaan rumah' },
+            { kanji: '貸し出し', kana: 'かしだし', caraBaca: 'kashidashi', arti: 'peminjaman' },
+            { kanji: '数', kana: 'かず', caraBaca: 'kazu', arti: 'jumlah' },
+            { kanji: '型', kana: 'かた', caraBaca: 'kata', arti: 'model,tipe' },
+            { kanji: '片方', kana: 'かたほう', caraBaca: 'katahou', arti: 'Salah satu,satu sisi' },
+            { kanji: 'カタログ', kana: '', caraBaca: 'katarogu', arti: 'katalog' },
+            { kanji: '価値', kana: 'かち', caraBaca: 'kachi', arti: 'nilai' },
+            { kanji: 'カット', kana: '', caraBaca: 'katto', arti: 'cut,potong' },
+            { kanji: '活動', kana: 'かつどう', caraBaca: 'katsudoo', arti: 'aktifitas,aksi' },
+            { kanji: '我慢', kana: 'がまん', caraBaca: 'gaman', arti: 'sabar,menahan' },
+            { kanji: '空', kana: 'から', caraBaca: 'kara', arti: 'kosong' },
+            { kanji: '革', kana: 'かわ', caraBaca: 'kawa', arti: 'kulit' },
+            { kanji: '歓迎', kana: 'かんげい', caraBaca: 'kangei', arti: 'menyambut' },
+            { kanji: '観光', kana: 'かんこう', caraBaca: 'kankoo', arti: 'berwisata' },
+            { kanji: '観察', kana: 'かんさつ', caraBaca: 'kansatsu', arti: 'pengamatan' },
+            { kanji: '感じ', kana: 'かんじ', caraBaca: 'kanji', arti: 'perasaan,kesan' },
+            { kanji: '感謝', kana: 'かんしゃ', caraBaca: 'kansya', arti: 'Berterima kasih' },
+            { kanji: '感情', kana: 'かんじょう', caraBaca: 'kanjoo', arti: 'perasaan,emosi' },
+            { kanji: '関心', kana: 'かんしん', caraBaca: 'kanshin', arti: 'minat' },
+            { kanji: '感心', kana: 'かんしん', caraBaca: 'kanshin', arti: 'berkesan' },
+            { kanji: '完成', kana: 'かんせい', caraBaca: 'kansei', arti: 'selesai,lengkap' },
+            { kanji: '感想', kana: 'かんそう', caraBaca: 'kansoo', arti: 'kesan,berkesan' },
+            { kanji: '感動', kana: 'かんどう', caraBaca: 'kandoo', arti: 'terharu' },
+            { kanji: '乾杯', kana: 'かんぱい', caraBaca: 'kanpai', arti: 'bersulang' },
+            { kanji: '管理', kana: 'かんり', caraBaca: 'kanri', arti: 'manajemen' },
+            { kanji: '関連', kana: 'かんれん', caraBaca: 'kanren', arti: 'hubungan/relasi' },
+            { kanji: '機会', kana: 'きかい', caraBaca: 'kikai', arti: 'kesempatan' },
+            { kanji: '効きめ', kana: 'ききめ', caraBaca: 'kikime', arti: 'keefektifan' },
+            { kanji: '帰国', kana: 'きこく', caraBaca: 'kikoku', arti: 'Pulang ke negara' },
+            { kanji: '記事', kana: 'きじ', caraBaca: 'kiji', arti: 'artikel' },
+            { kanji: '技術', kana: 'ぎじゅつ', caraBaca: 'gijutsu', arti: 'teknologi' },
+            { kanji: '期待', kana: 'きたい', caraBaca: 'kitai', arti: 'harapan' },
+            { kanji: '帰宅', kana: 'きたく', caraBaca: 'kitaku', arti: 'Pulang ke rumah' },
+            { kanji: '貴重品', kana: 'きちょうひん', caraBaca: 'kichoohin', arti: 'Barang berharga' },
+            { kanji: '記入', kana: 'きにゅう', caraBaca: 'kinyuu', arti: 'mengisi' },
+            { kanji: '記念', kana: 'きねん', caraBaca: 'kinen', arti: 'mengenang' },
+            { kanji: '希望', kana: 'きぼう', caraBaca: 'kiboo', arti: 'berharap/harapan' },
+            { kanji: '基本', kana: 'きほん', caraBaca: 'kihon', arti: 'dasar' },
+            { kanji: '義務', kana: 'ぎむ', caraBaca: 'gimu', arti: 'kewajiban' },
+            { kanji: '疑問', kana: 'ぎもん', caraBaca: 'gimon', arti: 'pertanyaan/ragu(dlm pikiran)' },
+            { kanji: '休憩', kana: 'きゅうけい', caraBaca: 'kyuukei', arti: 'istirahat' },
+            { kanji: '急用', kana: 'きゅうよう', caraBaca: 'kyuuyoo', arti: 'Keperluan bisnis/mendesak' },
+            { kanji: '行事', kana: 'ぎょうじ', caraBaca: 'gyooji', arti: 'acara/even' },
+            { kanji: '競争', kana: 'きょうそう', caraBaca: 'kyoosoo', arti: 'kompetisi' },
+            { kanji: '共通', kana: 'きょうつう', caraBaca: 'kyootsuu', arti: 'sama/memiliki kesamaan' },
+            { kanji: '協力', kana: 'きょうりょく', caraBaca: 'kyooryoku', arti: 'Kerjasama' },
+            { kanji: '行列', kana: 'ぎょうれつ', caraBaca: 'gyooretsu', arti: 'antrian' },
+            { kanji: '許可', kana: 'きょか', caraBaca: 'kyoka', arti: 'izin' },
+            { kanji: '漁業', kana: 'ぎょぎょう', caraBaca: 'gyogyoo', arti: 'Industri prikanan' },
+            { kanji: '距離', kana: 'きょり', caraBaca: 'kyori', arti: 'jarak' },
+            { kanji: '記録', kana: 'きろく', caraBaca: 'kiroku', arti: 'merekam(di data)' },
+            { kanji: '金庫', kana: 'きんこ', caraBaca: 'kinko', arti: 'brangkas' },
+            { kanji: '近視', kana: 'きんし', caraBaca: 'kinshi', arti: 'Rabun jauh' },
+            { kanji: '緊張', kana: 'きんちょう', caraBaca: 'kinchoo', arti: 'gerogi' },
+            { kanji: '具合', kana: 'ぐあい', caraBaca: 'guai', arti: 'kondisi' },
+            { kanji: '工夫', kana: 'くふう', caraBaca: 'kufuu', arti: 'Mencari cara' },
+            { kanji: '区別', kana: 'くべつ', caraBaca: 'kubetsu', arti: 'membedakan' },
+            { kanji: 'クリーニング', kana: '', caraBaca: 'kuriiningu', arti: 'laundry' },
+            { kanji: '苦労', kana: 'くろう', caraBaca: 'kuroo', arti: 'kesulitan' },
+            { kanji: '経営', kana: 'けいえい', caraBaca: 'keiei', arti: 'mengelola' },
+            { kanji: '掲示', kana: 'けいじ', caraBaca: 'keiji', arti: 'trpajang/memajang' },
+            { kanji: '景色', kana: 'けしき', caraBaca: 'keshiki', arti: 'pemandangan' },
+            { kanji: '結果', kana: 'けっか', caraBaca: 'kekka', arti: 'hasil' },
+            { kanji: '決心', kana: 'けっしん', caraBaca: 'kesshin', arti: 'Keputusan bulat' },
+            { kanji: '欠席', kana: 'けっせき', caraBaca: 'kesseki', arti: 'Tdk hadir' },
+            { kanji: '決定', kana: 'けってい', caraBaca: 'kettei', arti: 'keputusan' },
+            { kanji: '欠点', kana: 'けってん', caraBaca: 'ketten', arti: 'kekurangan' },
+            { kanji: '結論', kana: 'けつろん', caraBaca: 'ketsuron', arti: 'kesimpulan' },
+            { kanji: '券', kana: 'けん', caraBaca: 'ken', arti: 'tiket' }, // Changed from tikus
+            { kanji: '研修', kana: 'けんしゅう', caraBaca: 'kensyuu', arti: 'pelatihan' },
+            { kanji: '建設', kana: 'けんせつ', caraBaca: 'kensetsu', arti: 'konstruksi' }, // Changed from instruksi
+            { kanji: '建築', kana: 'けんちく', caraBaca: 'kenchiku', arti: 'arsitek' },
+            { kanji: '権利', kana: 'けんり', caraBaca: 'kenri', arti: 'hak' },
+            { kanji: '原料', kana: 'げんりょう', caraBaca: 'genryoo', arti: 'Bahan dasar' },
+            { kanji: '講演', kana: 'こうえん', caraBaca: 'kooen', arti: 'perkuliahan' },
+            { kanji: '効果', kana: 'こうか', caraBaca: 'kooka', arti: 'efek(baik)' },
+            { kanji: '交換', kana: 'こうかん', caraBaca: 'kookan', arti: 'bertukar' },
+            { kanji: '工業', kana: 'こうぎょう', caraBaca: 'koogyoo', arti: 'industri' },
+            { kanji: '航空便', kana: 'こうくうびん', caraBaca: 'kookuubin', arti: 'Pos udara' },
+            { kanji: '合計', kana: 'ごうけい', caraBaca: 'gookei', arti: 'total' },
+            { kanji: '広告', kana: 'こうこく', caraBaca: 'kookoku', arti: 'iklan' },
+            { kanji: '交際', kana: 'こうさい', caraBaca: 'kosai', arti: 'hubungan' },
+            { kanji: '工事', kana: 'こうじ', caraBaca: 'kooji', arti: 'Pngerjaan konstruksi' },
+            { kanji: '行動', kana: 'こうどう', caraBaca: 'koodoo', arti: 'brbuat/bertindak' },
+            { kanji: '公立', kana: 'こうりつ', caraBaca: 'kooritsu', arti: 'umum' },
+            { kanji: '交流', kana: 'こうりゅう', caraBaca: 'kooryuu', arti: 'brinteraksi' },
+            { kanji: 'コース', kana: '', caraBaca: 'koosu', arti: 'lintasan,jalur' },
+            { kanji: 'コーナー', kana: '', caraBaca: 'koonaa', arti: 'korner,area' },
+            { kanji: 'ゴール', kana: '', caraBaca: 'gooru', arti: 'tujuan,target' },
+            { kanji: '誤解', kana: 'ごかい', caraBaca: 'gokai', arti: 'Salah paham' },
+            { kanji: '小型', kana: 'こがた', caraBaca: 'kogata', arti: 'Ukuran kecil' },
+            { kanji: '国産', kana: 'こくさん', caraBaca: 'kokusan', arti: 'Produksi dlm negri' },
+            { kanji: '国立', kana: 'こくりつ', caraBaca: 'kokuritsu', arti: 'negeri' },
+            { kanji: '故障', kana: 'こしょう', caraBaca: 'kosyoo', arti: 'rusak' },
+            { kanji: '国会', kana: 'こっかい', caraBaca: 'kokkai', arti: 'parlemen' },
+            { kanji: '小包', kana: 'こづつみ', caraBaca: 'kodutsumi', arti: 'paket' },
+            { kanji: '粉', kana: 'こな', caraBaca: 'kona', arti: 'tepung' },
+            { kanji: 'コンクール', kana: '', caraBaca: 'konkuuru', arti: 'kontes' },
+            { kanji: '最高', kana: 'さいこう', caraBaca: 'saikoo', arti: 'Paling tinggi' },
+            { kanji: '最大', kana: 'さいだい', caraBaca: 'saidai', arti: 'Paling besar' },
+            { kanji: '最低', kana: 'さいてい', caraBaca: 'saitei', arti: 'Paling rendah' },
+            { kanji: '裁判', kana: 'さいばん', caraBaca: 'saiban', arti: 'pengadilan' },
+            { kanji: '材料', kana: 'ざいりょう', caraBaca: 'zairyoo', arti: 'bahan,material' },
+            { kanji: 'サイレン', kana: '', caraBaca: 'sairen', arti: 'Bunyi sirene' },
+            { kanji: '作業', kana: 'さぎょう', caraBaca: 'sagyoo', arti: 'pengerjaan' },
+            { kanji: '作品', kana: 'さくひん', caraBaca: 'sakuhin', arti: 'Hasil karya' },
+            { kanji: '撮影', kana: 'さつえい', caraBaca: 'satsuei', arti: 'Pengambilan foto/video' },
+            { kanji: '騒ぎ', kana: 'さわぎ', caraBaca: 'sawagi', arti: 'keributan' },
+            { kanji: '参加', kana: 'さんか', caraBaca: 'sanka', arti: 'ikut,brpartipasi' },
+            { kanji: '産業', kana: 'さんぎょう', caraBaca: 'sangyoo', arti: 'industri' },
+            { kanji: '参考', kana: 'さんこう', caraBaca: 'sankoo', arti: 'referensi' },
+            { kanji: '賛成', kana: 'さんせい', caraBaca: 'sansei', arti: 'setuju,sepakat' }, // Changed from sepaket
+            { kanji: '産地', kana: 'さんち', caraBaca: 'sanchi', arti: 'Lokasi produksi' },
+            { kanji: '残業', kana: 'ざんぎょう', caraBaca: 'zangyoo', arti: 'lembur' },
+            { kanji: '資源', kana: 'しげん', caraBaca: 'shigen', arti: 'Sumber alam' },
+            { kanji: '事件', kana: 'じけん', caraBaca: 'jiken', arti: 'insiden' },
+            { kanji: '諦める', kana: 'あきらめる', caraBaca: 'akirameru', arti: 'menyerah' },
+            { kanji: '飽きる', kana: 'あきる', caraBaca: 'akiru', arti: 'jenuh' },
+            { kanji: '預かる', kana: 'あずかる', caraBaca: 'azukaru', arti: 'dititipkan' },
+            { kanji: '預ける', kana: 'あずける', caraBaca: 'azukeru', arti: 'menitipkan' },
+            { kanji: '暖める', kana: 'あたためる', caraBaca: 'atatameru', arti: 'menghangatkan (suhu udara)' },
+            { kanji: '温める', kana: 'あたためる', caraBaca: 'atatameru', arti: 'menghangatkan (benda)' },
+            { kanji: '当たる', kana: 'あたる', caraBaca: 'ataru', arti: 'terkena' },
+            { kanji: '余る', kana: 'あまる', caraBaca: 'amaru', arti: 'berlebih' },
+            { kanji: '編む', kana: 'あむ', caraBaca: 'amu', arti: 'merajut' },
+            { kanji: '現れる', kana: 'あらわれる', caraBaca: 'arawareru', arti: 'muncul' }, // Corrected spelling
+            { kanji: '合わせる', kana: 'あわせる', caraBaca: 'awaseru', arti: 'mencocokkan' },
+            { kanji: '慌てる', kana: 'あわてる', caraBaca: 'awateru', arti: 'tergesa2' },
+            { kanji: '生かす', kana: 'いかす', caraBaca: 'ikasu', arti: 'menerapkan' },
+            { kanji: 'いじめる', kana: '', caraBaca: 'ijimeru', arti: 'membully' },
+            { kanji: '炒める', kana: 'いためる', caraBaca: 'itameru', arti: 'menumis' }, // Added kanji
+            { kanji: '嫌がる', kana: 'いやがる', caraBaca: 'iyagaru', arti: 'membenci' },
+            { kanji: 'いらいらする', kana: '', caraBaca: 'irairasuru', arti: 'meradang,marah' },
+            { kanji: '祝う', kana: 'いわう', caraBaca: 'iwau', arti: 'merayakan' },
+            { kanji: '浅い', kana: 'あさい', caraBaca: 'asai', arti: 'dangkal' },
+            { kanji: '恐ろしい', kana: 'おそろしい', caraBaca: 'osoroshii', arti: 'menakutkan' },
+            { kanji: 'おとなしい', kana: '', caraBaca: 'otonashii', arti: 'manut,pendiam' },
+            { kanji: 'かゆい', kana: '', caraBaca: 'kayui', arti: 'gatal' },
+            { kanji: 'きつい', kana: '', caraBaca: 'kitsui', arti: 'sempit' },
+            { kanji: '悔しい', kana: 'くやしい', caraBaca: 'kuyashii', arti: 'kecewa' },
+            { kanji: '指示', kana: 'しじ', caraBaca: 'shiji', arti: 'instruksi,arahan' },
+            { kanji: '事実', kana: 'じじつ', caraBaca: 'jijitsu', arti: 'kenyataan,fakta' },
+            { kanji: '事情', kana: 'じじょう', caraBaca: 'jijyoo', arti: 'situasi,kondisi' },
+            { kanji: '自信', kana: 'じしん', caraBaca: 'jishin', arti: 'Percaya diri' },
+            { kanji: '時速', kana: 'じそく', caraBaca: 'jisoku', arti: 'Kecepatan perjam' },
+            { kanji: '支度', kana: 'したく', caraBaca: 'shitaku', arti: 'persiapan' },
+            { kanji: '失業', kana: 'しつぎょう', caraBaca: 'shitsugyoo', arti: 'Kehilangan pekerjaan' },
+            { kanji: '実際', kana: 'じっさい', caraBaca: 'jissai', arti: 'Yang sebenarnya' },
+            { kanji: '実力', kana: 'じつりょく', caraBaca: 'jitsuryoku', arti: 'kekuatan' },
+            { kanji: '支店', kana: 'してん', caraBaca: 'shiten', arti: 'Toko cabang' },
+            { kanji: '指導', kana: 'しどう', caraBaca: 'shidoo', arti: 'membimbing' },
+            { kanji: '事務', kana: 'じむ', caraBaca: 'jimu', arti: 'Kerjaan kantor' },
+            { kanji: '締め切り', kana: 'しめきり', caraBaca: 'shimekiri', arti: 'Batas waktu' },
+            { kanji: 'じゃま', kana: '', caraBaca: 'jama', arti: 'gangguan' },
+            { kanji: '集会', kana: 'しゅうかい', caraBaca: 'syuukai', arti: 'pertemuan' },
+            { kanji: '宗教', kana: 'しゅうきょう', caraBaca: 'syuukyoo', arti: 'agama' },
+            { kanji: '集合', kana: 'しゅうごう', caraBaca: 'syuugoo', arti: 'kumpul' },
+            { kanji: '就職', kana: 'しゅうしょく', caraBaca: 'syuusyoku', arti: 'pekerjaan' },
+            { kanji: '集中', kana: 'しゅうちゅう', caraBaca: 'syuuchuu', arti: 'fokus' },
+            { kanji: '充電', kana: 'じゅうでん', caraBaca: 'juuden', arti: 'mengisi(baterai)' },
+            { kanji: '修理', kana: 'しゅうり', caraBaca: 'syuuri', arti: 'perbaikan' },
+            { kanji: '主義', kana: 'しゅぎ', caraBaca: 'syugi', arti: 'komitmen/prinsip' },
+            { kanji: '縮小', kana: 'しゅくしょう', caraBaca: 'syukusyoo', arti: 'mengurangi' },
+            { kanji: '受信', kana: 'じゅしん', caraBaca: 'jushin', arti: 'menerima(email,pesan)' },
+            { kanji: '植える', kana: 'うえる', caraBaca: 'ueru', arti: 'menanam' },
+            { kanji: '受かる', kana: 'うかる', caraBaca: 'ukaru', arti: 'lulus' },
+            { kanji: '浮く', kana: 'うく', caraBaca: 'uku', arti: 'mengambang' },
+            { kanji: '受け付ける', kana: 'うけつける', caraBaca: 'uketsukeru', arti: 'menerima' },
+            { kanji: '受け取る', kana: 'うけとる', caraBaca: 'uketoru', arti: 'menerima' },
+            { kanji: '動かす', kana: 'うごかす', caraBaca: 'ugokasu', arti: 'menggerakkan/memindahkan' },
+            { kanji: '移す', kana: 'うつす', caraBaca: 'utsusu', arti: 'memindahkan(hal abstrak jg trmasuk)' },
+            { kanji: '写る', kana: 'うつる', caraBaca: 'utsuru', arti: 'terfoto' },
+            { kanji: '裏返す', kana: 'うらがえす', caraBaca: 'uragaesu', arti: 'membalikkan' },
+            { kanji: '売り切れる', kana: 'うりきれる', caraBaca: 'urikireru', arti: 'Habis terjual' },
+            { kanji: '追い掛ける', kana: 'おいかける', caraBaca: 'oikakeru', arti: 'mengejar' },
+            { kanji: '追い越す', kana: 'おいこす', caraBaca: 'oikosu', arti: 'menyusul,menyalip' },
+            { kanji: '追い付く', kana: 'おいつく', caraBaca: 'oitsuku', arti: 'menyusul' },
+            { kanji: '贈る', kana: 'おくる', caraBaca: 'okuru', arti: 'Mengirim hadiah' },
+            { kanji: '行う', kana: 'おこなう', caraBaca: 'okonau', arti: 'mengadakan' },
+            { kanji: '押さえる', kana: 'おさえる', caraBaca: 'osaeru', arti: 'memegang,menahan' },
+            { kanji: '落ち着く', kana: 'おちつく', caraBaca: 'ochitsuku', arti: 'tenang' },
+            { kanji: '溺れる', kana: 'おぼれる', caraBaca: 'oboreru', arti: 'tenggelam(kecelakaan)' },
+            { kanji: '思い付く', kana: 'おもいつく', caraBaca: 'oitsuku', arti: 'Muncul ide' }, // Changed kanji to match meaning
+            { kanji: '折れる', kana: 'おれる', caraBaca: 'oreru', arti: 'patah' },
+            { kanji: '下ろす', kana: 'おろす', caraBaca: 'orosu', arti: 'menurunkan' },
+            { kanji: '飼う', kana: 'かう', caraBaca: 'kau', arti: 'memelihara' },
+            { kanji: '輝く', kana: 'かがやく', caraBaca: 'kagayaku', arti: 'bersinar(abstrakpun bisa)' },
+            { kanji: '隠す', kana: 'かくす', caraBaca: 'kakusu', arti: 'menyembunyikan' },
+            { kanji: '苦しい', kana: 'くるしい', caraBaca: 'kurushii', arti: 'menderita,kesusahan' },
+            { kanji: '詳しい', kana: 'くわしい', caraBaca: 'kuwashii', arti: 'detail' },
+            { kanji: '濃い', kana: 'こい', caraBaca: 'koi', arti: 'pekat,kental(warna,rasa mknnan)' },
+            { kanji: '細かい', kana: 'こまかい', caraBaca: 'komakai', arti: 'kecil' },
+            { kanji: '塩辛い', kana: 'しおからい', caraBaca: 'shiokarai', arti: 'asin' },
+            { kanji: '四角い', kana: 'しかくい', caraBaca: 'shikakui', arti: 'Persegi empat' },
+            { kanji: 'つらい', kana: '', caraBaca: 'tsurai', arti: 'berat,menyakitkan' },
+            { kanji: 'ぬるい', kana: '', caraBaca: 'nurui', arti: 'hangat(air,cairan)' },
+            { kanji: '貧しい', kana: 'まずしい', caraBaca: 'mazushii', arti: 'miskin' },
+            { kanji: '蒸し暑い', kana: 'むしあつい', caraBaca: 'mushiatsui', arti: 'Panas gerah' },
+            { kanji: 'もったいない', kana: '', caraBaca: 'mottainai', arti: 'mubazir,sia2' },
+            { kanji: 'ものすごい', kana: '', caraBaca: 'monosugoi', arti: 'Luar biasa' }
+        ];
+
+        const encouragementMessages = [
+            "You're doing great! ✨", "Awesome! 👍", "Keep it up! 🚀", "Super smart! 🧠",
+            "Wow! 🎉", "You're a star! ⭐", "Fantastic! 😃", "Brilliant! 💡"
+        ];
+
+        let words = [];
+        let currentWordIndex = -1;
+        let last100Scores = [];
+        let perfectCount = 0;
+        let questionsAnswered = 0;
+        let questionCounter = 0;
+
+        // DOM Elements
+        const card = document.getElementById('card');
+        const questionText = document.getElementById('question-text');
+        const questionType = document.getElementById('question-type');
+        const answerCaraBaca = document.getElementById('answer-cara-baca');
+        const answerArti = document.getElementById('answer-arti');
+        const questionButtons = document.getElementById('question-buttons');
+        const answerButtons = document.getElementById('answer-buttons');
+        const flipButton = document.getElementById('flip-button');
+        const skipButton = document.getElementById('skip-button');
+        
+        // --- Initialization ---
+        function init() {
+            words = vocabularyData.map((word, index) => ({
+                ...word,
+                id: index,
+                history: [], // Stores last 5 scores
+                mastery: 0, // 0: new, 1: learning, 2: mastered
+            }));
+            
+            flipButton.addEventListener('click', flipCard);
+            skipButton.addEventListener('click', () => handleScore(0));
+
+            nextQuestion();
+        }
+
+        // --- Core Logic ---
+        function nextQuestion() {
+            if (card.classList.contains('is-flipped')) {
+                card.classList.remove('is-flipped');
+            }
+            
+            // Short delay to allow flip-back animation to start
+            setTimeout(() => {
+                currentWordIndex = chooseNextWordIndex();
+                displayQuestion();
+                
+                questionButtons.classList.remove('hidden');
+                questionButtons.classList.add('flex');
+                answerButtons.classList.add('hidden');
+            }, 200);
+        }
+
+        function chooseNextWordIndex() {
+            const notMastered = words.filter(w => w.mastery < 2);
+            const mastered = words.filter(w => w.mastery === 2);
+
+            // Create a weighted pool of words
+            // Not-mastered words are 4 times more likely to appear
+            // This encourages practice on difficult words but still provides positive feedback
+            let weightedPool = [];
+            notMastered.forEach(word => {
+                for(let i=0; i < 4; i++) weightedPool.push(word.id);
+            });
+            mastered.forEach(word => weightedPool.push(word.id));
+            
+            if (weightedPool.length === 0) { // All words mastered
+                weightedPool = words.map(w => w.id);
+            }
+            
+            const randomIndex = Math.floor(Math.random() * weightedPool.length);
+            return weightedPool[randomIndex];
+        }
+
+        function displayQuestion() {
+            const word = words[currentWordIndex];
+            // Randomly choose to show kanji or kana/caraBaca as the question
+            const showKanji = Math.random() > 0.5 && word.kanji;
+
+            if (showKanji) {
+                questionText.textContent = word.kanji;
+                questionType.textContent = 'What is the reading and meaning?';
+            } else {
+                questionText.textContent = word.kana || word.caraBaca;
+                questionType.textContent = 'What is the kanji and meaning?';
+            }
+            
+            answerCaraBaca.textContent = word.caraBaca;
+            answerArti.textContent = word.arti;
+        }
+
+        function flipCard() {
+            card.classList.add('is-flipped');
+            questionButtons.classList.add('hidden');
+            questionButtons.classList.remove('flex');
+            answerButtons.classList.remove('hidden');
+            answerButtons.classList.add('grid');
+        }
+
+        function handleScore(score) {
+            questionsAnswered++;
+            questionCounter++;
+            
+            if (score === 1) {
+                perfectCount++;
+            }
+
+            // Update last 100 scores
+            last100Scores.push(score);
+            if (last100Scores.length > 100) {
+                last100Scores.shift(); // Remove the oldest score
+            }
+
+            // Update word history and mastery
+            const word = words[currentWordIndex];
+            word.history.push(score);
+            if (word.history.length > 5) {
+                word.history.shift();
+            }
+
+            // Check for mastery: last 5 scores are all 1
+            if (word.history.length === 5 && word.history.every(s => s === 1)) {
+                word.mastery = 2; // Mastered
+            } else {
+                word.mastery = 1; // Learning
+            }
+
+            updateStats();
+
+            if (questionCounter % 5 === 0) {
+                showEncouragement();
+            }
+            
+            nextQuestion();
+        }
+
+        // --- UI Updates ---
+        function updateStats() {
+            // Perfect score
+            const perfectPercentage = questionsAnswered > 0 ? Math.round((perfectCount / questionsAnswered) * 100) : 0;
+            document.getElementById('perfect-score').textContent = `${perfectPercentage}%`;
+
+            // Last 100 score
+            const last100Total = last100Scores.reduce((sum, score) => sum + score, 0);
+            document.getElementById('last100-score').textContent = last100Total.toFixed(1);
+
+            // Mastered count
+            const masteredCount = words.filter(w => w.mastery === 2).length;
+            document.getElementById('mastered-score').textContent = `${masteredCount}/${words.length}`;
+        }
+
+        function showEncouragement() {
+            const popup = document.getElementById('encouragement-popup');
+            const text = document.getElementById('encouragement-text');
+            const message = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
+            
+            text.textContent = message;
+            popup.classList.remove('hidden');
+
+            setTimeout(() => {
+                popup.classList.add('hidden');
+            }, 3000);
+        }
+
+        // --- Start the game ---
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</body>
+</html>
